@@ -203,49 +203,5 @@ class ENASTuner(ENASBaseTuner):
                 self.writearcline(arc, out_file=out_file)
 
 
-def main(_):
-    logger.debug("-" * 80)
-
-    SearchForMicro = False
-    if FLAGS.search_for == "micro":
-        SearchForMicro = True
-
-    logger.debug('Parse parameter done!!!!!!!!!!!!!!!!!!!!!!!!.')
-    logger.debug("Not here")
-    child_totalsteps = (FLAGS.train_data_size + FLAGS.batch_size - 1 )// FLAGS.batch_size
-
-    controler_steps = FLAGS.controller_train_steps * FLAGS.controller_num_aggregate
-    say_hello = "hello"
-    tuner = ENASTuner(say_hello)
-    epoch = 0
-
-    if SearchForMicro:
-        while True:
-            if epoch >= FLAGS.num_epochs:
-                break
-            normal_arc,reduce_arc = tuner.get_csvai(controler_steps)
-            logger.debug("normal arc length\t" + str(len(normal_arc)))
-            # TODO: nni.send_final_result()
-            tuner.send_child_micro_arc(epoch, normal_arc, reduce_arc)
-            epoch = epoch + 1
-            # TODO nni.get_parameters()
-            valid_acc_arr = tuner.receive_reward(epoch)
-
-            tuner.controller_one_step(epoch, valid_acc_arr)
-
-    else:
-        while True:
-            if epoch >= FLAGS.num_epochs:
-                break
-
-            # TODO: nni.send_final_result()
-            config = tuner.generate_parameters(0)
-            epoch = epoch + 1
-            # TODO nni.get_parameters()
-            valid_acc_arr = tuner.receive_trial_result(0,config,0.99)
-            print(valid_acc_arr)
-            tuner.controller_one_step(epoch, valid_acc_arr)
-
-
 if __name__ == "__main__":
     tf.app.run()
