@@ -3,7 +3,7 @@ This code is for running enas code on nni system.
 link:https://github.com/Microsoft/nni  
 link:https://github.com/melodyguan/enas  
 
-Install:
+Install:  
   1 Need to install nni system first.  
   link:https://github.com/Microsoft/nni You need to choose the dev-enas branch.  
   Use command:   
