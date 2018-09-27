@@ -192,23 +192,6 @@ def get_train_ops(
     learning_rate = tf.cond(tf.less(train_step, lr_warmup_steps),
                             lambda: lr_warmup_val, lambda: learning_rate)
 
-  # if get_grad_norms:
-  #   g_1, g_2 = 0.0001, 0.0001
-  #   for v, g in zip(tf_variables, grads):
-  #     if g is not None:
-  #       if isinstance(g, tf.IndexedSlices):
-  #         g_n = tf.reduce_sum(g.values ** 2)
-  #       else:
-  #         g_n = tf.reduce_sum(g ** 2)
-  #       if "enas_cell" in v.name:
-  #         print("g_1: {}".format(v.name))
-  #         g_1 += g_n
-  #       else:
-  #         print("g_2: {}".format(v.name))
-  #         g_2 += g_n
-  #   learning_rate = tf.Print(learning_rate, [g_1, g_2, tf.sqrt(g_1 / g_2)],
-  #                            message="g_1, g_2, g_1/g_2: ", summarize=5)
-
   if optim_algo == "momentum":
     opt = tf.train.MomentumOptimizer(
       learning_rate, 0.9, use_locking=True, use_nesterov=True)

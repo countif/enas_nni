@@ -123,6 +123,7 @@ class ENASTuner(ENASBaseTuner):
             config=config, hooks=hooks, checkpoint_dir=FLAGS.output_dir)
         logger.debug('initlize controller_model done.')
 
+
     def generate_parameters(self, parameter_id, trial_job_id=None):
         child_arc = self.get_csvaa(self.controller_total_steps)
         self.epoch = self.epoch + 1
@@ -174,6 +175,7 @@ class ENASTuner(ENASBaseTuner):
 
         return
 
+
     def receive_trial_result(self, parameter_id, parameters, reward, trial_job_id):
         logger.debug("epoch:\t"+str(self.epoch))
         logger.debug(parameter_id)
@@ -188,7 +190,6 @@ class ENASTuner(ENASBaseTuner):
         pass
 
 
-    # TODO: nni.send_final_result()
     def send_child_micro_arc(self, epoch, normal_arc, reduce_arc):
         output_path = self.controller_prefix + str(epoch) + ".txt"
         with open(output_path, "w") as out_file:
