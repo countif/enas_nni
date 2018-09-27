@@ -1,8 +1,8 @@
 authorName: Unknown
 experimentName: enas_macro
-trialConcurrency: 1
+trialConcurrency: 2
 maxExecDuration: 24h
-maxTrialNum: 1
+maxTrialNum: 10
 #choice: local, remote
 trainingServicePlatform: local
 #choice: true, false
