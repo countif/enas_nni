@@ -37,52 +37,6 @@ class ENASBaseTrial(object):
         return valid_acc_arr
 
 
-    # TODO: nni.send_final_result()
-    def send_reward(self, epoch, rewards):
-        with open(self.child_prefix + str(epoch) + ".txt", "w") as out_file:
-            fcntl.flock(out_file, fcntl.LOCK_EX)
-            number = len(rewards)
-            out_file.write(str(number) + "\n")
-            for i in range(0, number):
-                out_file.write(str(rewards[i]) + "\n")
-
-
-    def receive_line(self, line):
-        tokens = line.split()
-        arc = []
-        for j in range(0, len(tokens)):
-            arc.append(int(tokens[j]))
-        arc = np.array(arc)
-        return arc
-
-
-    # TODO nni.get_parameters()
-    def receive_macro_arc(self, epoch):
-        input_path = self.controller_prefix + str(epoch) + ".txt"
-
-        while True:
-            # detect new file
-            if os.path.exists(input_path):
-                break
-            else:
-                time.sleep(5)
-
-        with open(input_path, "r") as in_file:
-            fcntl.flock(in_file, fcntl.LOCK_EX)
-            arr = in_file.readlines()
-            number = int(arr[0].split()[0])
-            child_arc = []
-            for i in range(number):
-                line = arr[i + 1]
-                tokens = line.split()
-                arc = []
-                for j in range(0, len(tokens)):
-                    arc.append(int(tokens[j]))
-                arc = np.array(arc)
-                child_arc.append(arc)
-        return child_arc
-
-
     def parset_child_arch(self,child_arc):
         result_arc = []
         for i in range(0,len(child_arc)):
