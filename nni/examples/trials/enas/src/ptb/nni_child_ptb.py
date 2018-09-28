@@ -227,8 +227,7 @@ def main(_):
         logger.debug("epoch:\t" + str(epoch))
         valid_rl_loss_arr = trial.get_child_valid_loss(controller_total_steps, child_arc)
         logger.debug("Get rl_loss Done!\n")
-
-        trial.report_final_result(valid_rl_loss_arr)
+        nni.report_final_result(valid_acc_arr)
         logger.debug("Send rewards Done\n")
 
 
