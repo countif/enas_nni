@@ -3,14 +3,13 @@ from __future__ import division
 from __future__ import print_function
 
 import os
-import cPickle as pickle
 import shutil
 import sys
 import time
 import logging
 import numpy as np
 import tensorflow as tf
-import fcntl
+import pickle
 from src import utils
 from src.utils import Logger
 from src.utils import print_user_flags
@@ -18,6 +17,7 @@ from src.nni_child import ENASBaseTrial
 from src.ptb.ptb_enas_child import PTBEnasChild
 from src.nni_child import ENASBaseTrial
 from src.ptb_flags import *
+import nni
 
 
 def build_logger(log_name):
@@ -27,6 +27,8 @@ def build_logger(log_name):
     fh.setLevel(logging.DEBUG)
     logger.addHandler(fh)
     return logger
+
+
 logger = build_logger("nni_child_ptb")
 
 
@@ -92,8 +94,8 @@ class ENASTrial(ENASBaseTrial):
 
     def __init__(self):
 
-        with open(FLAGS.data_path) as finp:
-            x_train, x_valid, x_test, _, _ = pickle.load(finp)
+        with open(FLAGS.data_path,"rb") as finp:
+            x_train, x_valid, x_test, _, _ = pickle.load(finp,encoding="latin1")
             logger.debug("-" * 80)
             logger.debug("train_size: {0}".format(np.size(x_train)))
             logger.debug("valid_size: {0}".format(np.size(x_valid)))
@@ -213,7 +215,9 @@ def main(_):
     while True:
         if epoch >= FLAGS.num_epochs:
             break
-        child_arc = trial.receive_macro_arc(epoch)
+        logger.debug("get paramters")
+        child_arc = nni.get_parameters()
+        child_arc = trial.parset_child_arch(child_arc)
 
         first_arc = child_arc[0]
         logger.debug(first_arc)
@@ -224,8 +228,9 @@ def main(_):
         valid_rl_loss_arr = trial.get_child_valid_loss(controller_total_steps, child_arc)
         logger.debug("Get rl_loss Done!\n")
 
-        trial.send_reward(epoch, valid_rl_loss_arr)
+        trial.report_final_result(valid_rl_loss_arr)
         logger.debug("Send rewards Done\n")
+
 
 if __name__ == "__main__":
   tf.app.run()

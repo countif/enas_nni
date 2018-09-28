@@ -20,7 +20,6 @@ from src.cifar10.general_child import GeneralChild
 from src.cifar10.micro_child import MicroChild
 
 
-
 class ENASBaseTrial(object):
 
     def __init__(self):

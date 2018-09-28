@@ -3,7 +3,6 @@ from __future__ import division
 from __future__ import print_function
 
 import os
-import cPickle as pickle
 import shutil
 import sys
 import time
@@ -86,11 +85,10 @@ class ENASTuner(ENASBaseTuner):
         logger.debug('Parse parameter done.')
         self.controller_total_steps = FLAGS.controller_train_steps * FLAGS.controller_num_aggregate
         logger.debug("controller_total_steps\n")
-        logger.debug(controller_total_steps)
+        logger.debug(self.controller_total_steps)
         self.child_steps = FLAGS.child_steps
 
         self.controller_model = BuildController()
-        self.controller_total_steps = FLAGS.controller_train_steps * FLAGS.controller_num_aggregate
 
         self.graph = tf.Graph()
 

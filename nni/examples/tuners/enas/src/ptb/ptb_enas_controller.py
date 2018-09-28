@@ -71,7 +71,7 @@ class PTBEnasController(object):
     with tf.variable_scope(self.name, initializer=initializer):
       with tf.variable_scope("lstm"):
         self.w_lstm = []
-        for layer_id in xrange(self.lstm_num_layers):
+        for layer_id in range(self.lstm_num_layers):
           with tf.variable_scope("layer_{}".format(layer_id)):
             w = tf.get_variable("w", [2 * self.lstm_size, 4 * self.lstm_size])
             self.w_lstm.append(w)
@@ -101,12 +101,12 @@ class PTBEnasController(object):
     # sampler ops
     inputs = self.g_emb
     prev_c, prev_h = [], []
-    for _ in xrange(self.lstm_num_layers):
+    for _ in range(self.lstm_num_layers):
       prev_c.append(tf.zeros([1, self.lstm_size], dtype=tf.float32))
       prev_h.append(tf.zeros([1, self.lstm_size], dtype=tf.float32))
 
     # used = tf.zeros([self.rhn_depth, 2], dtype=tf.int32)
-    for layer_id in xrange(self.rhn_depth):
+    for layer_id in range(self.rhn_depth):
       next_c, next_h = stack_lstm(inputs, prev_c, prev_h, self.w_lstm)
       prev_c, prev_h = next_c, next_h
       all_h.append(next_h[-1])
