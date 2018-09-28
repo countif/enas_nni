@@ -13,7 +13,7 @@ tuner:
   classFileName: nni_controller_cifar10.py
   className: ENASTuner
   classArgs:
-    say_hello: "hello"
+    macro_str: "micro"
 
 trial:
   command: ./script/macrochild.sh

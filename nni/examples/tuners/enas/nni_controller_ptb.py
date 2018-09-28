@@ -150,7 +150,7 @@ class ENASTuner(ENASBaseTuner):
 
 
     def generate_parameters(self, parameter_id, trial_job_id=None):
-        child_arc = self.get_controller_arc_macro(self.controller_total_steps)
+        child_arc = self.get_controller_arc_macro(self.child_steps)
         self.epoch = self.epoch + 1
         return child_arc
 
