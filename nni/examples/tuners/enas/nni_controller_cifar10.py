@@ -86,10 +86,17 @@ def get_controller_ops(controller_model):
 
 class ENASTuner(ENASBaseTuner):
 
-    def __init__(self, say_hello):
+    def __init__(self, macro_str):
+
+        if macro_str == "macro":
+            self.Is_macro = True
+            macro_init()
+        else:
+            self.Is_macro = False
+            micro_init()
 
         logger.debug('Parse parameter done.')
-        logger.debug(say_hello)
+        logger.debug(macro_str)
 
         self.child_totalsteps = (FLAGS.train_data_size + FLAGS.batch_size - 1) // FLAGS.batch_size
 
@@ -125,12 +132,17 @@ class ENASTuner(ENASBaseTuner):
 
 
     def generate_parameters(self, parameter_id, trial_job_id=None):
-        child_arc = self.get_csvaa(self.controller_total_steps)
-        self.epoch = self.epoch + 1
-        return child_arc
+        if self.Is_macro:
+            child_arc = self.get_controller_arc_macro(self.controller_total_steps)
+            self.epoch = self.epoch + 1
+            return child_arc
+        else:
+            normal_arc,reduce_arc = self.get_controller_arc_micro(self.controller_total_steps)
+            self.epoch = self.epoch + 1
+            return normal_arc,reduce_arc
 
 
-    def get_csvai(self, child_totalsteps):
+    def get_controller_arc_micro(self, child_totalsteps):
         normal_arc = []
         reduce_arc = []
         for _ in range(0, child_totalsteps):
@@ -172,7 +184,6 @@ class ENASTuner(ENASBaseTuner):
                 log_string += " bl={:<5.2f}".format(bl)
                 log_string += " child acc={:<5.2f}".format(valid_acc_arr[ct_step])
                 logger.debug(log_string)
-
         return
 
 
@@ -188,20 +199,6 @@ class ENASTuner(ENASBaseTuner):
     def update_search_space(self, data):
 
         pass
-
-
-    def send_child_micro_arc(self, epoch, normal_arc, reduce_arc):
-        output_path = self.controller_prefix + str(epoch) + ".txt"
-        with open(output_path, "w") as out_file:
-            fcntl.flock(out_file, fcntl.LOCK_EX)
-            number = len(normal_arc)
-            out_file.write(str(number) + "\n")
-
-            for i in range(number):
-                arc = normal_arc[i]
-                self.writearcline(arc, out_file=out_file)
-                arc = reduce_arc[i]
-                self.writearcline(arc, out_file=out_file)
 
 
 if __name__ == "__main__":

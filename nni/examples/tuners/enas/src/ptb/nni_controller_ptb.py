@@ -148,10 +148,7 @@ def main(_):
         os.makedirs(FLAGS.output_dir)
 
     logger.debug("-" * 80)
-
     logger.debug('Parse parameter done.')
-
-
     controller_total_steps = FLAGS.controller_train_steps * FLAGS.controller_num_aggregate
     logger.debug("controller_total_steps\n")
     logger.debug(controller_total_steps)

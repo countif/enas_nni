@@ -87,7 +87,8 @@ def get_child_ops(child_model):
 
 class ENASTrial(ENASBaseTrial):
 
-    def __init__(self, CONST_CONTROLLER_PREFIX, CONST_CHILD_PREFIX):
+    def __init__(self):
+
         if FLAGS.child_fixed_arc is None:
             images, labels = read_data(FLAGS.data_path)
         else:
@@ -97,8 +98,7 @@ class ENASTrial(ENASBaseTrial):
             ChildClass = MicroChild
         else:
             ChildClass = GeneralChild
-        self.controller_prefix = CONST_CONTROLLER_PREFIX
-        self.child_prefix = CONST_CHILD_PREFIX
+
         g = tf.Graph()
         with g.as_default():
             self.child_model = BuildChild(images, labels, ChildClass)
@@ -237,9 +237,7 @@ def main(_):
         os.makedirs(FLAGS.output_dir)
     logger.debug("-" * 80)
 
-    CONST_CONTROLLER_PREFIX = "../../connect/controller/"
-    CONST_CHILD_PREFIX = "../../connect/child/"
-    trial = ENASTrial(CONST_CONTROLLER_PREFIX, CONST_CHILD_PREFIX)
+    trial = ENASTrial()
     controller_total_steps = FLAGS.controller_train_steps * FLAGS.controller_num_aggregate
     logger.debug("here is the num train batches")
 

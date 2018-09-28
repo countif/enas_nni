@@ -25,7 +25,8 @@ class ENASBaseTuner(MultiPhaseTuner):
     def __init__(self):
         return
 
-    def get_csvaa(self, child_totalsteps):
+
+    def get_controller_arc_macro(self, child_totalsteps):
         child_arc = []
         for _ in range(0, child_totalsteps):
             arc = self.sess.run(self.controller_model.sample_arc)

@@ -17,6 +17,7 @@ from src.ptb.data_utils import ptb_input_producer
 from src.ptb.ptb_ops import batch_norm
 from src.ptb.ptb_ops import layer_norm
 
+
 class PTBEnasChild(object):
   def __init__(self,
                x_train,
