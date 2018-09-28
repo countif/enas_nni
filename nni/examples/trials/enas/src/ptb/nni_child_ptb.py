@@ -17,7 +17,8 @@ from src.utils import print_user_flags
 from src.nni_child import ENASBaseTrial
 from src.ptb.ptb_enas_child import PTBEnasChild
 from src.nni_child import ENASBaseTrial
-from src.ptbflags import *
+from src.ptb_flags import *
+
 
 def build_logger(log_name):
     logger = logging.getLogger(log_name)
@@ -67,6 +68,7 @@ def BuildChild(x_train, x_valid, x_test):
         name="ptb_enas_model")
     return child_model
 
+
 def get_child_ops(child_model):
     child_ops = {
         "global_step": child_model.global_step,
@@ -88,7 +90,7 @@ def get_child_ops(child_model):
 
 class ENASTrial(ENASBaseTrial):
 
-    def __init__(self,CONST_CONTROLLER_PREFIX, CONST_CHILD_PREFIX):
+    def __init__(self):
 
         with open(FLAGS.data_path) as finp:
             x_train, x_valid, x_test, _, _ = pickle.load(finp)
@@ -97,8 +99,7 @@ class ENASTrial(ENASBaseTrial):
             logger.debug("valid_size: {0}".format(np.size(x_valid)))
             logger.debug(" test_size: {0}".format(np.size(x_test)))
 
-        self.controller_prefix = CONST_CONTROLLER_PREFIX
-        self.child_prefix = CONST_CHILD_PREFIX
+
         g = tf.Graph()
         with g.as_default():
             self.child_model = BuildChild(x_train, x_valid, x_test)
@@ -197,9 +198,8 @@ def main(_):
     logger.debug("-" * 80)
 
     logger.debug('Parse parameter done.')
-    CONST_CONTROLLER_PREFIX = "../../connect/ptbcontroller/"
-    CONST_CHILD_PREFIX = "../../connect/ptbchild/"
-    trial = ENASTrial(CONST_CONTROLLER_PREFIX,CONST_CHILD_PREFIX)
+
+    trial = ENASTrial()
     controller_total_steps = FLAGS.controller_train_steps * FLAGS.controller_num_aggregate
     logger.debug("here is the num controller_total_steps\n")
     logger.debug(controller_total_steps)
@@ -216,6 +216,7 @@ def main(_):
         child_arc = trial.receive_macro_arc(epoch)
 
         first_arc = child_arc[0]
+        logger.debug(first_arc)
         logger.debug("len\t" + str(len(child_arc)))
         actual_step, epoch,num_batches,total_tr_ppl = trial.child_ooe_step(num_batches,total_tr_ppl,child_steps, child_arc)
         trial.ChildReset()

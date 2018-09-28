@@ -15,8 +15,10 @@ from src.cifar10.data_utils import read_data
 from src.cifar10.general_child import GeneralChild
 from src.cifar10.micro_child import MicroChild
 from src.nni_child import ENASBaseTrial
-from  src.cifar10flags import *
+from  src.cifar10_flags import *
 import nni
+
+
 def build_logger(log_name):
     logger = logging.getLogger(log_name)
     logger.setLevel(logging.DEBUG)
@@ -24,7 +26,10 @@ def build_logger(log_name):
     fh.setLevel(logging.DEBUG)
     logger.addHandler(fh)
     return logger
+
+
 logger = build_logger("nni_child_cifar10")
+
 
 def BuildChild(images, labels, ChildClass):
     child_model = ChildClass(
@@ -203,30 +208,6 @@ class ENASTrial(ENASBaseTrial):
         return actual_step, epoch
 
 
-    def receive_micro_arc(self, epoch):
-        input_path = self.controller_prefix + str(epoch) + ".txt"
-        while True:
-            # detect new file
-            if os.path.exists(input_path):
-                break
-            else:
-                time.sleep(5)
-        with open(input_path, "r") as in_file:
-            fcntl.flock(in_file, fcntl.LOCK_EX)
-            arr = in_file.readlines()
-            number = int(arr[0].split()[0])
-            normal_arc = []
-            reduce_arc = []
-            for i in range(number):
-                line = arr[i * 2 + 1]
-                arc1 = self.receive_line(line)
-                line = arr[i * 2 + 2]
-                arc2 = self.receive_line(line)
-                normal_arc.append(arc1)
-                reduce_arc.append(arc2)
-        return normal_arc, reduce_arc
-
-
     def start_eval_micro(self, first_arc):
         self.child_ops["eval_func"]\
             (self.sess, "valid", first_arc, self.child_model, SearchForMicro=True)
@@ -273,6 +254,10 @@ def main(_):
             if epoch >= FLAGS.num_epochs:
                 break
             # TODO nni.get_parameters()
+            logger.debug("get parameter")
+            parameters =  nni.get_parameters()
+            logger.debug(parameters)
+
             normal_arc, reduce_arc = trial.receive_micro_arc(epoch)
 
             first_arc = (normal_arc[0], reduce_arc[0])

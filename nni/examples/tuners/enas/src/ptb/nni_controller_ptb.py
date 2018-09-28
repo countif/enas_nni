@@ -17,8 +17,8 @@ from src.utils import print_user_flags
 from src.nni_controller import ENASBaseTuner
 from src.ptb.ptb_enas_controller import PTBEnasController
 from src.nni_controller import ENASBaseTuner
-import fcntl
-from src.ptbflags import *
+from src.ptb_flags import *
+
 
 def build_logger(log_name):
     logger = logging.getLogger(log_name)
@@ -79,7 +79,11 @@ def get_controller_ops(controller_model):
 
 class ENASTuner(ENASBaseTuner):
 
-    def __init__(self,CONST_CONTROLLER_PREFIX,CONST_CHILD_PREFIX):
+    def __init__(self):
+        controller_total_steps = FLAGS.controller_train_steps * FLAGS.controller_num_aggregate
+        logger.debug("controller_total_steps\n")
+        logger.debug(controller_total_steps)
+        child_steps = FLAGS.child_steps
 
         self.controller_prefix = CONST_CONTROLLER_PREFIX
         self.child_prefix = CONST_CHILD_PREFIX
@@ -146,15 +150,14 @@ def main(_):
     logger.debug("-" * 80)
 
     logger.debug('Parse parameter done.')
-    CONST_CONTROLLER_PREFIX = "../../connect/ptbcontroller/"
-    CONST_CHILD_PREFIX = "../../connect/ptbchild/"
+
 
     controller_total_steps = FLAGS.controller_train_steps * FLAGS.controller_num_aggregate
     logger.debug("controller_total_steps\n")
     logger.debug(controller_total_steps)
     child_steps = FLAGS.child_steps
 
-    tuner = ENASTuner(CONST_CONTROLLER_PREFIX,CONST_CHILD_PREFIX)
+    tuner = ENASTuner()
     epoch = 0
 
     while True:
