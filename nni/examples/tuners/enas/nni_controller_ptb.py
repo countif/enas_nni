@@ -28,6 +28,7 @@ def build_logger(log_name):
     logger.addHandler(fh)
     return logger
 
+
 logger = build_logger("nni_controller_ptb")
 
 
@@ -79,14 +80,15 @@ def get_controller_ops(controller_model):
 
 class ENASTuner(ENASBaseTuner):
 
-    def __init__(self):
-        controller_total_steps = FLAGS.controller_train_steps * FLAGS.controller_num_aggregate
+    def __init__(self,say_hello):
+        logger.debug(say_hello)
+        self.epoch = 0
+        logger.debug('Parse parameter done.')
+        self.controller_total_steps = FLAGS.controller_train_steps * FLAGS.controller_num_aggregate
         logger.debug("controller_total_steps\n")
         logger.debug(controller_total_steps)
-        child_steps = FLAGS.child_steps
+        self.child_steps = FLAGS.child_steps
 
-        self.controller_prefix = CONST_CONTROLLER_PREFIX
-        self.child_prefix = CONST_CHILD_PREFIX
         self.controller_model = BuildController()
         self.controller_total_steps = FLAGS.controller_train_steps * FLAGS.controller_num_aggregate
 
@@ -107,9 +109,18 @@ class ENASTuner(ENASBaseTuner):
         logger.debug('initlize controller_model done.')
 
 
-    def controller_one_step(self,epoch, valid_loss_arr,controller_total_steps):
+    def receive_trial_result(self, parameter_id, parameters, reward, trial_job_id):
+        logger.debug("epoch:\t"+str(self.epoch))
+        logger.debug(parameter_id)
+        logger.debug(reward)
+        valid_acc_arr = reward
+        self.controller_one_step(self.epoch, valid_acc_arr)
+        return
+
+
+    def controller_one_step(self,epoch, valid_loss_arr):
         logger.debug("Epoch {}: Training controller".format(epoch))
-        for ct_step in xrange(controller_total_steps):
+        for ct_step in xrange(self.controller_total_steps):
             run_ops = [
                 self.controller_ops["loss"],
                 self.controller_ops["entropy"],
@@ -135,37 +146,15 @@ class ENASTuner(ENASBaseTuner):
         return
 
 
+    def update_search_space(self, data):
 
-def main(_):
-    logger.debug("-" * 80)
+        pass
 
-    if not os.path.isdir(FLAGS.output_dir):
-        logger.debug("Path {} does not exist. Creating.".format(FLAGS.output_dir))
-        os.makedirs(FLAGS.output_dir)
-    elif FLAGS.reset_output_dir:
-        logger.debug("Path {} exists. Remove and remake.".format(FLAGS.output_dir))
-        shutil.rmtree(FLAGS.output_dir)
-        os.makedirs(FLAGS.output_dir)
 
-    logger.debug("-" * 80)
-    logger.debug('Parse parameter done.')
-    controller_total_steps = FLAGS.controller_train_steps * FLAGS.controller_num_aggregate
-    logger.debug("controller_total_steps\n")
-    logger.debug(controller_total_steps)
-    child_steps = FLAGS.child_steps
-
-    tuner = ENASTuner()
-    epoch = 0
-
-    while True:
-        if epoch >= FLAGS.num_epochs:
-            break
-        child_arc = tuner.get_csvaa(child_steps)
-        logger.debug("child_arc length\t" + str(len(child_arc)))
-        tuner.send_child_macro_arc(epoch, child_arc)
-        epoch = epoch + 1
-        valid_loss_arr = tuner.receive_reward(epoch)
-        tuner.controller_one_step(epoch, valid_loss_arr, controller_total_steps)
+    def generate_parameters(self, parameter_id, trial_job_id=None):
+        child_arc = self.get_controller_arc_macro(self.controller_total_steps)
+        self.epoch = self.epoch + 1
+        return child_arc
 
 
 if __name__ == "__main__":
