@@ -118,7 +118,7 @@ class ENASTuner(ENASBaseTuner):
 
     def controller_one_step(self,epoch, valid_loss_arr):
         logger.debug("Epoch {}: Training controller".format(epoch))
-        for ct_step in xrange(self.controller_total_steps):
+        for ct_step in range(self.controller_total_steps):
             run_ops = [
                 self.controller_ops["loss"],
                 self.controller_ops["entropy"],
