@@ -1,4 +1,3 @@
-
 # enas_nni
 >This code is for running enas code on nni.  
 # nni
@@ -12,10 +11,10 @@
 >>  Need to install nni first.  
 >>  link:https://github.com/Microsoft/nni You need to choose the dev-enas branch.  
 >>  run command:   
-'''
+`
 >>  pip3 install -v --user git+https://github.com/Microsoft/nni.git@dev-enas  
 >>  source ~/.bashrc   
-'''
+`
 
 >2. Modify the codedir:
 >>  Rnn architecture search(ptb_search):
@@ -35,14 +34,19 @@ Or you could just run the script/download.sh at script folder.
 
 >4. Start run
 >>  ptb_search:
+`
 >>    nnictl create --config ~/nni/examples/trials/enas/ptb_config.yml  
+`
 
 >>  micro_search:
+`
 >>    nnictl create --config ~/nni/examples/trials/enas/cifar10_micro_config.yml  
-
+`
   
 >>  macro_search:
+`
 >>    nnictl create --config ~/nni/examples/trials/enas/cifar10_macro_config.yml  
+`
 
 >5 Future work:
 >>We have one controller running on nni tuner and we could run multiple trials to update the controller. But we do not share the weight of each trial. Next step we will support that. 
