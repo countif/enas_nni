@@ -15,12 +15,12 @@
 >>  source ~/.bashrc   
 
 >2. Modify the codedir:
->>  For rnn arch search:
+>>  Rnn arch search:
 >>>    Modify the codeDir at ~/nni/examples/trials/enas/ptb_config.yml.   
       
->>  For cnn arch search:
+>>  Cnn arch search:
 >>>   macro search:  Modify the codeDir at  ~/nni/examples/trials/enas/cifar10_macro_config.yml.        
->>>    micro search:   Modify the codeDir at ~/nni/examples/trials/enas/cifar10_micro_config.yml.    
+>>>   micro search:   Modify the codeDir at ~/nni/examples/trials/enas/cifar10_micro_config.yml.    
         
 >3. Download the dataset:
   
