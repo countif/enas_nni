@@ -22,13 +22,13 @@
 >>>   macro search:  Modify the codeDir at  ~/nni/examples/trials/enas/cifar10_macro_config.yml.        
 >>>    micro search:   Modify the codeDir at ~/nni/examples/trials/enas/cifar10_micro_config.yml.    
         
->  3 Download the dataset:
+>3. Download the dataset:
   
 >> rnn arch search:    the dataset are at enas_nni/nni/examples/trials/enas/data/ptb
     
 >>  cnn arch search:  You need to download the cifar10 data at https://www.cs.toronto.edu/~kriz/cifar.html (python version). And put data at  enas_nni/nni/examples/trials/enas/data and rename the cifar-10-batches-py as cifar10 .   
   
->  4 Start run
+>4. Start run
   
 >  micro_search:
 >>    nnictl create --config ~/nni/examples/trials/enas/cifar10_micro_config.yml  
