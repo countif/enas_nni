@@ -5,7 +5,7 @@
 >>This code is for running ENAS on nni.   
 
 
-# nni
+# nni: An open source AutoML toolkit for neural architecture search and hyper-parameter tuning. 
 >link:  https://github.com/Microsoft/nni  
 
 # ENAS: Efficient Neural Architecture Search via Parameter Sharing
