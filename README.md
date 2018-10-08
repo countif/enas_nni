@@ -1,7 +1,8 @@
 # enas_nni
 ## Description
 >>ENAS is a algorithm for neural network search. It could learn neural network architecture via reinforcement learning. And it is much faster than NAS, designed by google.  
->>nni is a system where we could run some algorithm on it. This code is for running ENAS on nni.  
+>>nni is a system where we could run some algorithm on it.   
+>>This code is for running ENAS on nni.   
 
 
 # nni
