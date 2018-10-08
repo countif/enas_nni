@@ -32,13 +32,13 @@ Or you could run the script/download.sh and put the cifar10 data at enas_nni/nni
   
 >4. Start run
   
->  micro_search:
+>>  micro_search:
 >>    nnictl create --config ~/nni/examples/trials/enas/cifar10_micro_config.yml  
   
->  ptb_search:
+>>  ptb_search:
 >>    nnictl create --config ~/nni/examples/trials/enas/ptb_config.yml  
   
->  macro_search:
+>>  macro_search:
 >>    nnictl create --config ~/nni/examples/trials/enas/cifar10_macro_config.yml  
   
 
