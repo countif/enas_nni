@@ -1,7 +1,7 @@
 # enas_nni
 ## Description
 >>ENAS is a algorithm for neural network search. It could learn neural network architecture via reinforcement learning. And it is much faster than NAS, designed by google.  
->>nni is a kind of automl system, designed by MSRA, where we could run some algorithm on it.   
+>>nni is an open source AutoML toolkit for neural architecture search and hyper-parameter tuning.  
 >>This code is for running ENAS on nni.   
 
 
