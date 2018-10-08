@@ -1,16 +1,18 @@
 # enas_nni
-##>Description
+## Description
 >>ENAS is a algorithm for neural network search. ENAS has two part: one is controller, the other is child. It could learn neural network architecture via reinforcement learning. And it is much faster than NAS, designed by google.
 >>nni is a system where we could run some algorithm on it. This code is for running ENAS on nni.  
 
 
 # nni
 >link:  https://github.com/Microsoft/nni  
+
 # ENAS: Efficient Neural Architecture Search via Parameter Sharing
 >link:  https://github.com/melodyguan/enas   
 >Paper: https://arxiv.org/abs/1802.03268  
 
 # How to run this code
+
 ## 1. Install dependency  
 >>Need to install nni first.  
 >>link:https://github.com/Microsoft/nni You need to choose the dev-enas branch.  
