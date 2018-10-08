@@ -53,6 +53,6 @@ Or you could just run the script/download.sh at script folder.
 >>    nnictl create --config ~/nni/examples/trials/enas/cifar10_macro_config.yml  
 `
 
-## 5. Future work
+# Future work
 >>We have one controller running on nni tuner and we could run multiple trials to update the controller. But we do not share the weight of each trial. Next step we will support that. 
 
