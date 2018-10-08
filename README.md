@@ -12,7 +12,7 @@
 >link:  https://github.com/melodyguan/enas   
 >Paper: https://arxiv.org/abs/1802.03268  
 
-# How to run this code
+# How to run
 
 ## 1. Install dependency  
 >>Need to install nni first.  
