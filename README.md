@@ -1,6 +1,6 @@
 # enas_nni
 >This code is for running enas code on nni system.  
-# nni system
+# nni
 >link:  https://github.com/Microsoft/nni  
 # ENAS: Efficient Neural Architecture Search via Parameter Sharing
 >link:  https://github.com/melodyguan/enas   
@@ -8,7 +8,7 @@
 
 # How to run this code
 >1. Install dependency:  
->>  Need to install nni system first.  
+>>  Need to install nni first.  
 >>  link:https://github.com/Microsoft/nni You need to choose the dev-enas branch.  
 >>  run command:   
 >>  pip3 install -v --user git+https://github.com/Microsoft/nni.git@dev-enas  
