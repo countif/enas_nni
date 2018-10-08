@@ -1,5 +1,5 @@
 # enas_nni
->This code is for running enas code on nni system.  
+>This code is for running enas code on nni.  
 # nni
 >link:  https://github.com/Microsoft/nni  
 # ENAS: Efficient Neural Architecture Search via Parameter Sharing
