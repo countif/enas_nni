@@ -1,24 +1,24 @@
-## enas_nni
->Description
+# enas_nni
+##>Description
 >>ENAS is a algorithm for neural network search. ENAS has two part: one is controller, the other is child. It could learn neural network architecture via reinforcement learning. And it is much faster than NAS, designed by google.
 >>nni is a system where we could run some algorithm on it. This code is for running ENAS on nni.  
 
 
-## nni
+# nni
 >link:  https://github.com/Microsoft/nni  
-## ENAS: Efficient Neural Architecture Search via Parameter Sharing
+# ENAS: Efficient Neural Architecture Search via Parameter Sharing
 >link:  https://github.com/melodyguan/enas   
 >Paper: https://arxiv.org/abs/1802.03268  
 
-## How to run this code
-#>1. Install dependency  
+# How to run this code
+##>1. Install dependency  
 >>Need to install nni first.  
 >>link:https://github.com/Microsoft/nni You need to choose the dev-enas branch.  
 >>run command:   
 >>`pip3 install -v --user git+https://github.com/Microsoft/nni.git@dev-enas`  
 >>`source ~/.bashrc`  
 
->2. Modify the codedir
+##>2. Modify the codedir
 >>  Rnn architecture search(ptb_search):
 >>>    Modify the codeDir at ~/nni/examples/trials/enas/ptb_config.yml.   
       
@@ -26,7 +26,7 @@
 >>>   macro search:  Modify the codeDir at  ~/nni/examples/trials/enas/cifar10_macro_config.yml.        
 >>>   micro search:   Modify the codeDir at ~/nni/examples/trials/enas/cifar10_micro_config.yml.    
         
->3. Download the dataset
+##>3. Download the dataset
   
 >> rnn architecture search(ptb_search):    the dataset are at enas_nni/nni/examples/trials/enas/data/ptb
     
@@ -34,7 +34,7 @@
 And put data at  enas_nni/nni/examples/trials/enas/data and rename the cifar-10-batches-py as cifar10 .   
 Or you could just run the script/download.sh at script folder.
 
->4. Start run
+##>4. Start run
 >>ptb_search:
 `
 >>    nnictl create --config ~/nni/examples/trials/enas/ptb_config.yml  
@@ -50,6 +50,6 @@ Or you could just run the script/download.sh at script folder.
 >>    nnictl create --config ~/nni/examples/trials/enas/cifar10_macro_config.yml  
 `
 
->5. Future work
+##>5. Future work
 >>We have one controller running on nni tuner and we could run multiple trials to update the controller. But we do not share the weight of each trial. Next step we will support that. 
 
