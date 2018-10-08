@@ -1,3 +1,4 @@
+
 # enas_nni
 >This code is for running enas code on nni.  
 # nni
@@ -11,8 +12,10 @@
 >>  Need to install nni first.  
 >>  link:https://github.com/Microsoft/nni You need to choose the dev-enas branch.  
 >>  run command:   
+'''
 >>  pip3 install -v --user git+https://github.com/Microsoft/nni.git@dev-enas  
 >>  source ~/.bashrc   
+'''
 
 >2. Modify the codedir:
 >>  Rnn architecture search(ptb_search):
