@@ -15,30 +15,32 @@
 >>  source ~/.bashrc   
 
 >2. Modify the codedir:
->>  Rnn arch search:
+>>  Rnn architecture search(ptb_search):
 >>>    Modify the codeDir at ~/nni/examples/trials/enas/ptb_config.yml.   
       
->>  Cnn arch search:
+>>  Cnn architecture search(cifar10_search):
 >>>   macro search:  Modify the codeDir at  ~/nni/examples/trials/enas/cifar10_macro_config.yml.        
 >>>   micro search:   Modify the codeDir at ~/nni/examples/trials/enas/cifar10_micro_config.yml.    
         
 >3. Download the dataset:
   
->> rnn arch search:    the dataset are at enas_nni/nni/examples/trials/enas/data/ptb
+>> rnn architecture search(ptb_search):    the dataset are at enas_nni/nni/examples/trials/enas/data/ptb
     
->>  cnn arch search:  You need to download the cifar10 data at https://www.cs.toronto.edu/~kriz/cifar.html (python version).   
+>>  cnn architecture search:  You need to download the cifar10 data at https://www.cs.toronto.edu/~kriz/cifar.html (python version).   
 And put data at  enas_nni/nni/examples/trials/enas/data and rename the cifar-10-batches-py as cifar10 .   
-Or you could run the script/download.sh and put the cifar10 data at enas_nni/nni/examples/trials/enas/data.  
-  
+Or you could just run the script/download.sh at script folder.
+
 >4. Start run
-  
->>  micro_search:
->>    nnictl create --config ~/nni/examples/trials/enas/cifar10_micro_config.yml  
-  
 >>  ptb_search:
 >>    nnictl create --config ~/nni/examples/trials/enas/ptb_config.yml  
+
+>>  micro_search:
+>>    nnictl create --config ~/nni/examples/trials/enas/cifar10_micro_config.yml  
+
   
 >>  macro_search:
 >>    nnictl create --config ~/nni/examples/trials/enas/cifar10_macro_config.yml  
-  
+
+>5 Future work:
+>>We have one controller running on nni tuner and we could run multiple trials to update the controller. But we do not share the weight of each trial. Next step we will support that. 
 
