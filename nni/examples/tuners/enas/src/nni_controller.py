@@ -32,5 +32,3 @@ class ENASBaseTuner(MultiPhaseTuner):
             arc = self.sess.run(self.controller_model.sample_arc)
             child_arc.append(arc)
         return child_arc
-
-

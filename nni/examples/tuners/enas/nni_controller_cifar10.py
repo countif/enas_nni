@@ -14,7 +14,7 @@ from src.utils import Logger
 from src.cifar10.general_controller import GeneralController
 from src.cifar10.micro_controller import MicroController
 from src.nni_controller import ENASBaseTuner
-from src.cifar10flags import *
+from src.cifar10_flags import *
 
 
 def build_logger(log_name):
@@ -112,7 +112,6 @@ class ENASTuner(ENASBaseTuner):
             ControllerClass = GeneralController
         self.controller_model = BuildController(ControllerClass)
 
-
         self.graph = tf.Graph()
 
         gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.1)
@@ -132,14 +131,17 @@ class ENASTuner(ENASBaseTuner):
 
 
     def generate_parameters(self, parameter_id, trial_job_id=None):
+
         if self.Is_macro:
             child_arc = self.get_controller_arc_macro(self.controller_total_steps)
             self.epoch = self.epoch + 1
             return child_arc
         else:
             normal_arc,reduce_arc = self.get_controller_arc_micro(self.controller_total_steps)
+            result_arc = normal_arc
+            result_arc.extend(reduce_arc)
             self.epoch = self.epoch + 1
-            return normal_arc,reduce_arc
+            return result_arc
 
 
     def get_controller_arc_micro(self, child_totalsteps):

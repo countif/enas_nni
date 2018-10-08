@@ -36,7 +36,7 @@ class ENASBaseTrial(object):
         return valid_acc_arr
 
 
-    def parset_child_arch(self,child_arc):
+    def parset_child_arch(self, child_arc):
         result_arc = []
         for i in range(0,len(child_arc)):
             arc = child_arc[i]['__ndarray__']

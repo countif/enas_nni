@@ -1,5 +1,5 @@
 authorName: Unknown
-experimentName: enas_macro
+experimentName: enas_micro
 trialConcurrency: 2
 maxExecDuration: 24h
 maxTrialNum: 10
@@ -16,6 +16,6 @@ tuner:
     macro_str: "micro"
 
 trial:
-  command: ./script/macrochild.sh
+  command: ./script/micro_child.sh
   codeDir: ~/nni/examples/trials/enas
   gpuNum: 1

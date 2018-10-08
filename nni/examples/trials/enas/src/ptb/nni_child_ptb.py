@@ -94,7 +94,7 @@ class ENASTrial(ENASBaseTrial):
 
     def __init__(self):
 
-        with open(FLAGS.data_path,"rb") as finp:
+        with open(FLAGS.data_path, "rb") as finp:
             x_train, x_valid, x_test, _, _ = pickle.load(finp,encoding="latin1")
             logger.debug("-" * 80)
             logger.debug("train_size: {0}".format(np.size(x_train)))
@@ -222,7 +222,7 @@ def main(_):
         first_arc = child_arc[0]
         logger.debug(first_arc)
         logger.debug("len\t" + str(len(child_arc)))
-        actual_step, epoch,num_batches,total_tr_ppl = trial.child_ooe_step(num_batches,total_tr_ppl,child_steps, child_arc)
+        actual_step, epoch,num_batches,total_tr_ppl = trial.child_ooe_step(num_batches, total_tr_ppl, child_steps, child_arc)
         trial.ChildReset()
         logger.debug("epoch:\t" + str(epoch))
         valid_rl_loss_arr = trial.get_child_valid_loss(controller_total_steps, child_arc)

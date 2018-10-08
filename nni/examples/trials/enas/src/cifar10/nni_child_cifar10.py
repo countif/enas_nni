@@ -133,6 +133,27 @@ class ENASTrial(ENASBaseTrial):
         return valid_acc_arr
 
 
+    def parset_micro_arch(self,child_arc):
+
+        normal_arc = []
+        reduce_arc = []
+
+        number = len(child_arc)
+        half_number = number//2
+
+        logger.debug("get arc total number\t"+str(half_number))
+
+        for i in range(0,half_number):
+            arc = child_arc[i]['__ndarray__']
+            normal_arc.append(arc)
+
+        for i in range(half_number,number):
+            arc = child_arc[i]['__ndarray__']
+            reduce_arc.append(arc)
+
+        return normal_arc,reduce_arc
+
+
     def run_cchild_one_micro(self, child_totalsteps, normal_arc, reduce_arc):
         run_ops = [
             self.child_ops["loss"],
@@ -246,17 +267,19 @@ def main(_):
     logger.debug("child total \t"+str(child_totalsteps))
     epoch = 0
 
-    first_arc = None
     if is_micro:
         while True:
             if epoch >= FLAGS.num_epochs:
                 break
-            # TODO nni.get_parameters()
+
             logger.debug("get parameter")
             parameters =  nni.get_parameters()
             logger.debug(parameters)
 
-            normal_arc, reduce_arc = trial.receive_micro_arc(epoch)
+            normal_arc,reduce_arc = trial.parset_micro_arch(parameters)
+            assert len(normal_arc) == len(reduce_arc)
+
+            logger.debug("parse arch finish!")
 
             first_arc = (normal_arc[0], reduce_arc[0])
             logger.debug("len\t" + str(len(normal_arc)))
@@ -267,20 +290,19 @@ def main(_):
             valid_acc_arr = trial.get_child_arc_micro(controller_total_steps, normal_arc, reduce_arc)
             logger.debug("Get rewards Done!\n")
 
-            # TODO: nni.send_final_result()
-            trial.send_reward(epoch, valid_acc_arr)
+            nni.report_final_result(valid_acc_arr)
             logger.debug("Send rewards Done\n")
 
             trial.start_eval_micro(first_arc=first_arc)
+
     else:
         while True:
             if epoch >= FLAGS.num_epochs:
                 break
-            # TODO nni.get_parameters()
+
             logger.debug("get paramters")
             child_arc = nni.get_parameters()
             child_arc = trial.parset_child_arch(child_arc)
-            #child_arc = trial.receive_macro_arc(epoch)
 
             first_arc = child_arc[0]
             logger.debug(first_arc)
@@ -291,9 +313,8 @@ def main(_):
             valid_acc_arr = trial.get_csvaa(controller_total_steps, child_arc)
             logger.debug("Get rewards Done!\n")
 
-            #TODO: nni.send_final_result()
             nni.report_final_result(valid_acc_arr)
-            #trial.send_reward(epoch, valid_acc_arr)
+
             logger.debug("Send rewards Done\n")
 
             trial.start_eval_macro(first_arc=first_arc)

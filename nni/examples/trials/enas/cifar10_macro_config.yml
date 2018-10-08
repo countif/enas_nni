@@ -16,6 +16,6 @@ tuner:
     macro_str: "macro"
 
 trial:
-  command: ./script/macrochild.sh
+  command: ./script/macro_child.sh
   codeDir: ~/nni/examples/trials/enas
   gpuNum: 1
