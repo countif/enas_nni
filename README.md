@@ -26,7 +26,9 @@
   
 >> rnn arch search:    the dataset are at enas_nni/nni/examples/trials/enas/data/ptb
     
->>  cnn arch search:  You need to download the cifar10 data at https://www.cs.toronto.edu/~kriz/cifar.html (python version). And put data at  enas_nni/nni/examples/trials/enas/data and rename the cifar-10-batches-py as cifar10 .   
+>>  cnn arch search:  You need to download the cifar10 data at https://www.cs.toronto.edu/~kriz/cifar.html (python version).   
+And put data at  enas_nni/nni/examples/trials/enas/data and rename the cifar-10-batches-py as cifar10 .   
+Or you could run the script/download.sh and put the cifar10 data at enas_nni/nni/examples/trials/enas/data.  
   
 >4. Start run
   
