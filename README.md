@@ -33,21 +33,21 @@ And put data at  enas_nni/nni/examples/trials/enas/data and rename the cifar-10-
 Or you could just run the script/download.sh at script folder.
 
 >4. Start run
->>  ptb_search:
+>>ptb_search:
 `
 >>    nnictl create --config ~/nni/examples/trials/enas/ptb_config.yml  
 `
 
->>  micro_search:
+>>micro_search:
 `
 >>    nnictl create --config ~/nni/examples/trials/enas/cifar10_micro_config.yml  
 `
   
->>  macro_search:
+>>macro_search:
 `
 >>    nnictl create --config ~/nni/examples/trials/enas/cifar10_macro_config.yml  
 `
 
->5 Future work:
+>5. Future work:
 >>We have one controller running on nni tuner and we could run multiple trials to update the controller. But we do not share the weight of each trial. Next step we will support that. 
 
