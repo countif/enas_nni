@@ -7,14 +7,14 @@
 >Paper: https://arxiv.org/abs/1802.03268  
 
 # How to run this code
->Install dependency:  
+>1. Install dependency:  
 >>  Need to install nni system first.  
 >>  link:https://github.com/Microsoft/nni You need to choose the dev-enas branch.  
 >>  run command:   
 >>  pip3 install -v --user git+https://github.com/Microsoft/nni.git@dev-enas  
 >>  source ~/.bashrc   
 
->Modify the codedir:
+>2. Modify the codedir:
 >>  For rnn arch search:
 >>>    Modify the codeDir at ~/nni/examples/trials/enas/ptb_config.yml.   
       
