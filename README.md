@@ -9,8 +9,36 @@ Install:
   Use command:   
     pip3 install -v --user git+https://github.com/Microsoft/nni.git@dev-enas  
     source ~/.bashrc  
-  2 Modify the codeDir of  enas_nni/nni/examples/trials/enas/config.yml.  
-  3 Download the cifar10 data at https://www.cs.toronto.edu/~kriz/cifar.html (python version). You need to put data at  enas_nni/nni/examples/trials/enas/data and rename the cifar-10-batches-py as cifar10 .   
-  4 Run the command: nnictl create --config ~/chicm/nni/examples/trials/enas/config.yml (It depends on where you put the config on)  
-
   
+  For rnn arch search:
+    2 Modify the codeDir at ~/nni/examples/trials/enas/ptb_config.yml.   
+      
+  For cnn arch search:
+    macro search:  
+      Modify the codeDir at  ~/nni/examples/trials/enas/cifar10_macro_config.yml.  
+      
+    micro search:
+      Modify the codeDir at ~/nni/examples/trials/enas/cifar10_micro_config.yml.    
+        
+  3 Download the dataset:
+  
+  For rnn arch search:
+    the dataset are at enas_nni/nni/examples/trials/enas/data/ptb
+    
+  For cnn arch search:  
+    You need to download the cifar10 data at https://www.cs.toronto.edu/~kriz/cifar.html (python version).  
+    And put data at  enas_nni/nni/examples/trials/enas/data and rename the cifar-10-batches-py as cifar10 .   
+  
+  4 
+  Run the commond:
+  
+  micro_search:
+    nnictl create --config ~/nni/examples/trials/enas/cifar10_micro_config.yml  
+  
+  ptb_search:
+    nnictl create --config ~/nni/examples/trials/enas/ptb_config.yml  
+  
+  macro_search:
+    nnictl create --config ~/nni/examples/trials/enas/cifar10_macro_config.yml  
+  
+
