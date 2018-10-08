@@ -11,12 +11,8 @@
 >>  Need to install nni first.  
 >>  link:https://github.com/Microsoft/nni You need to choose the dev-enas branch.  
 >>  run command:   
-`
->>  pip3 install -v --user git+https://github.com/Microsoft/nni.git@dev-enas  
-`
-`
->>  source ~/.bashrc   
-`
+`>>  pip3 install -v --user git+https://github.com/Microsoft/nni.git@dev-enas`  
+`>>  source ~/.bashrc`  
 
 >2. Modify the codedir:
 >>  Rnn architecture search(ptb_search):
