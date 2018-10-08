@@ -13,6 +13,8 @@
 >>  run command:   
 `
 >>  pip3 install -v --user git+https://github.com/Microsoft/nni.git@dev-enas  
+`
+`
 >>  source ~/.bashrc   
 `
 
