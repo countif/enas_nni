@@ -18,16 +18,16 @@
 >>Need to install nni first.  
 >>link:https://github.com/Microsoft/nni You need to choose the dev-enas branch.  
 >>run command:   
->>`pip3 install -v --user git+https://github.com/Microsoft/nni.git@dev-enas`  
+>>`python3 -m pip install --user --upgrade nni`  
 >>`source ~/.bashrc`  
 
 ## 2. Modify the codedir
 >>  Rnn architecture search(ptb_search):
->>>    Modify the codeDir at ~/nni/examples/trials/enas/ptb_config.yml.   
+>>>    Modify the codeDir at enas_nni/nni/examples/trials/enas/ptb_config.yml.   
       
 >>  Cnn architecture search(cifar10_search):
->>>   macro search:  Modify the codeDir at  ~/nni/examples/trials/enas/cifar10_macro_config.yml.        
->>>   micro search:   Modify the codeDir at ~/nni/examples/trials/enas/cifar10_micro_config.yml.    
+>>>   macro search:  Modify the codeDir at  enas_nni/nni/examples/trials/enas/cifar10_macro_config.yml.        
+>>>   micro search:   Modify the codeDir at enas_nni/nni/examples/trials/enas/cifar10_micro_config.yml.    
         
 ## 3. Download the dataset
   
@@ -38,19 +38,20 @@ And put data at  enas_nni/nni/examples/trials/enas/data and rename the cifar-10-
 Or you could just run the script/download.sh at script folder.
 
 ## 4. Start run
+`cd ./enas_nni/nni/examples/trials/enas`
 >>ptb_search:
 `
->>    nnictl create --config ~/nni/examples/trials/enas/ptb_config.yml  
+>>    nnictl create --config ptb_config.yml  
 `
 
 >>micro_search:
 `
->>    nnictl create --config ~/nni/examples/trials/enas/cifar10_micro_config.yml  
+>>    nnictl create --config cifar10_micro_config.yml  
 `
   
 >>macro_search:
 `
->>    nnictl create --config ~/nni/examples/trials/enas/cifar10_macro_config.yml  
+>>    nnictl create --config cifar10_macro_config.yml  
 `
 
 # Future work

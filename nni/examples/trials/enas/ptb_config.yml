@@ -9,13 +9,13 @@ trainingServicePlatform: local
 useAnnotation: false
 multiPhase: true
 tuner:
-  codeDir: ~/nni/examples/tuners/enas
+  codeDir: ./../../tuners/enas
   classFileName: nni_controller_ptb.py
   className: ENASTuner
   classArgs:
     say_hello: "hello"
 
 trial:
-  command: ./script/ptb_child.sh
-  codeDir: ~/nni/examples/trials/enas
+  command: sh ./script/ptb_child.sh
+  codeDir: ./
   gpuNum: 1
