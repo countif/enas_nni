@@ -46,6 +46,17 @@ def macro_init():
     DEFINE_integer("log_every", 50, "How many steps to log")
     DEFINE_integer("eval_every_epochs", 1, "How many epochs to eval")
 
+    DEFINE_string("tuner_class_name", "", "")
+    DEFINE_string("tuner_class_filename", "", "")
+    DEFINE_string("tuner_args", "", "")
+    DEFINE_string("tuner_directory", "", "")
+    DEFINE_string("assessor_class_name", "", "")
+    DEFINE_string("assessor_args", "", "")
+    DEFINE_string("assessor_directory", "", "")
+    DEFINE_string("assessor_class_filename", "", "")
+    DEFINE_boolean("multi_phase", True, "")
+    DEFINE_boolean("multi_thread", True, "")
+
 
 def micro_init():
 
@@ -86,3 +97,14 @@ def micro_init():
 
     DEFINE_integer("log_every", 50, "How many steps to log")
     DEFINE_integer("eval_every_epochs", 1, "How many epochs to eval")
+
+    DEFINE_string("tuner_class_name", "", "")
+    DEFINE_string("tuner_class_filename", "", "")
+    DEFINE_string("tuner_args", "", "")
+    DEFINE_string("tuner_directory", "", "")
+    DEFINE_string("assessor_class_name", "", "")
+    DEFINE_string("assessor_args", "", "")
+    DEFINE_string("assessor_directory", "", "")
+    DEFINE_string("assessor_class_filename", "", "")
+    DEFINE_boolean("multi_phase", True, "")
+    DEFINE_boolean("multi_thread", True, "")

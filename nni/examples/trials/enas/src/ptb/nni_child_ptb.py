@@ -216,7 +216,8 @@ def main(_):
         if epoch >= FLAGS.num_epochs:
             break
         logger.debug("get paramters")
-        child_arc = nni.get_parameters()
+        #child_arc = nni.get_parameters()
+        child_arc = nni.get_next_parameter()
         child_arc = trial.parset_child_arch(child_arc)
 
         first_arc = child_arc[0]

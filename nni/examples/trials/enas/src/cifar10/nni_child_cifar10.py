@@ -273,7 +273,8 @@ def main(_):
                 break
 
             logger.debug("get parameter")
-            parameters =  nni.get_parameters()
+            #parameters =  nni.get_parameters()
+            parameters = nni.get_next_parameter()
             logger.debug(parameters)
 
             normal_arc,reduce_arc = trial.parset_micro_arch(parameters)
@@ -301,7 +302,8 @@ def main(_):
                 break
 
             logger.debug("get paramters")
-            child_arc = nni.get_parameters()
+            #child_arc = nni.get_parameters()
+            child_arc = nni.get_next_parameter()
             child_arc = trial.parset_child_arch(child_arc)
 
             first_arc = child_arc[0]
